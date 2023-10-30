@@ -1,17 +1,22 @@
 const mysql2 = require("mysql2");
 // const mysql= require("mysql");
+
+// // development
+// const dbConnection = mysql2.createPool({
+// 	user: "evangadiuser",
+// 	database: "evangadidb2",
+// 	password: "evangadiuser",
+// 	connectionlimit: 10,
+// });
+
+// // production
 const dbConnection = mysql2.createPool({
-	user: "evangadiuser",
-	database: "evangadidb2",
-	password: "evangadiuser",
-	connectionlimit: 10,
+	host: "srv1171.hstgr.io",
+	user: process.env.USER,
+	database: process.env.DB,
+	password: process.env.PASS,
 });
 
-
-
-dbConnection.getConnection(function (err, connection) {
-	console.log("Database connected");
-});
 // let users = `CREATE TABLE if not exists users(
 //     user_id int auto_increment,
 //     user_name varchar(255) not null,
@@ -95,7 +100,7 @@ dbConnection.getConnection(function (err, connection) {
 // `;
 
 // Execute the SQL statements to create tables and add foreign keys in your database.
-// 
+//
 let users = `CREATE TABLE IF NOT EXISTS users(
     userid INT(20) NOT NULL AUTO_INCREMENT,
     username VARCHAR(30) NOT NULL,
@@ -126,25 +131,24 @@ let answers = `CREATE TABLE IF NOT EXISTS answers (
 
 dbConnection.query(users, (err, results) => {
 	if (err) {
-		console.log(err.message)
+		console.log(err.message);
 	} else {
-		
 		console.log("user table created");
 	}
 });
 
 dbConnection.query(questions, (err, results) => {
-		if (err) {
-			console.log(err.message);
-		} else {
-			console.log("questions table created");
-		}
+	if (err) {
+		console.log(err.message);
+	} else {
+		console.log("questions table created");
+	}
 });
 dbConnection.query(answers, (err, results) => {
-		if (err) {
-			console.log(err.message);
-		} else {
-			console.log("answers table created");
-		}
+	if (err) {
+		console.log(err.message);
+	} else {
+		console.log("answers table created");
+	}
 });
-module.exports=dbConnection.promise()
+module.exports = dbConnection.promise();
