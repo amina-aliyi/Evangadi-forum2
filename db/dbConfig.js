@@ -11,7 +11,7 @@ const mysql2 = require("mysql2");
 
 // // production
 const dbConnection = mysql2.createPool({
-	host: "srv1171.hstgr.io",
+	host: "db4free.net",
 	user: process.env.USER,
 	database: process.env.DB,
 	password: process.env.PASS,
